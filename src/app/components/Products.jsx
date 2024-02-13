@@ -26,10 +26,16 @@ export default function Products() {
     const fetchData = async (page) => {
         setLoading(true);
 
-        const response = await axios.post(`https://stockmanagement-ten.vercel.app/api/product`, {
+        const response = await axios.post(`http://localhost:3000/api/product`, {
             page: page,
             per_page: perPage,
             delay: 1,
+
+        }, {
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
         });
         setData(response.data.data);
         setTypes(response.data.type);
@@ -143,7 +149,7 @@ export default function Products() {
     }, []);
 
     const columns = [
-        {   
+        {
             name: 'รหัสสินค้า',
             selector: row => row.id,
             sortable: true,
