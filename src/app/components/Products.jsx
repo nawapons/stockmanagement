@@ -10,7 +10,7 @@ import { useRouter } from "next/navigation";
 import { IoReload } from "react-icons/io5";
 export default function Products() {
     const router = useRouter();
-    const [currentPage, setCurrentPage] = useState();
+    const [currentPage, setCurrentPage] = useState(1);
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(false);
     const [totalRows, setTotalRows] = useState(0);

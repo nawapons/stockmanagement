@@ -3,7 +3,7 @@ import axios from 'axios';
 import DataTable from 'react-data-table-component';
 
 export default function LogsComponents() {
-    const [currentPage, setCurrentPage] = useState();
+    const [currentPage, setCurrentPage] = useState(1);
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(false);
     const [totalRows, setTotalRows] = useState(0);

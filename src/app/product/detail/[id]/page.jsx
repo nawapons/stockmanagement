@@ -13,7 +13,7 @@ import { IoEye } from "react-icons/io5";
 import Link from 'next/link';
 export default function Lots() {
     const params = useParams();
-    const [currentPage, setCurrentPage] = useState();
+    const [currentPage, setCurrentPage] = useState(1);
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(false);
     const [totalRows, setTotalRows] = useState(0);
