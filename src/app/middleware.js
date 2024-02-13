@@ -1,23 +1,41 @@
-import { NextResponse } from "next/server"
+import { NextResponse } from "next/server";
 
-const corsHeaders = {
-    "Access-Control-Allow-Origin": "*",
-    "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
-    "Access-Control-Allow-Headers": "Content-Type, Authorization",
-}
+//set your chosen whitelisted origins here
+const allowedOrigins =
+    process.env.NODE_ENV === "production"
+        ? [
+            "https://stockmanagement-ten.vercel.app",
+            "https://stockmanagement-ten.vercel.app",
+            "https://www.google.com",
+        ]
+        : ["http://localhost:3000", "https://www.google.com"];
 
 export function middleware(request) {
-    if (request.method === "OPTIONS") {
-        return NextResponse.json({}, { headers: corsHeaders })
-    }
-    const response = NextResponse.next()
-    Object.entries(corsHeaders).forEach(([key, value]) => {
-        response.headers.append(key, value)
-    })
+    const origin = request.headers.get("origin");
 
-    return response
+    if (origin && !allowedOrigins.includes(origin)) {
+        return new Error("Invalid origin"), { status: 403 };
+    }
+    const response = NextResponse.next({
+        request: {
+            ...request,
+            headers: request.headers,
+        },
+    });
+
+    response.headers.set("Access-Control-Allow-Origin", "*");
+    response.headers.set(
+        "Access-Control-Allow-Methods",
+        "GET, POST, PUT, DELETE, OPTIONS"
+    );
+    response.headers.set(
+        "Access-Control-Allow-Headers",
+        "Content-Type, Authorization"
+    );
+
+    return response;
 }
 
 export const config = {
     matcher: "/api/:path*",
-}
+};
