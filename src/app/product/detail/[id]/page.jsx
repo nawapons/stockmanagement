@@ -38,7 +38,7 @@ export default function Lots() {
     const fetchData = async (page) => {
         setLoading(true);
 
-        const response = await axios.post(`http://localhost:3000/api/lots`, {
+        const response = await axios.post(`/api/lots`, {
             productid: params.id,
             page: page,
             per_page: perPage,
@@ -70,7 +70,7 @@ export default function Lots() {
     const handlePerRowsChange = async (newPerPage, page) => {
         setLoading(true);
 
-        const response = await axios.post(`http://localhost:3000/api/lots`, {
+        const response = await axios.post(`/api/lots`, {
             productid: params.id,
             page: page,
             per_page: newPerPage,
@@ -84,7 +84,7 @@ export default function Lots() {
     const handleSearch = async (query) => {
         setLoading(true);
 
-        const response = await axios.post(`http://localhost:3000/api/lots`, {
+        const response = await axios.post(`/api/lots`, {
             productid: params.id,
             page: currentPage,
             per_page: perPage,
@@ -99,7 +99,7 @@ export default function Lots() {
 
     const InsertLot = async (e) => {
         e.preventDefault();
-        const response = await axios.post("http://localhost:3000/api/lots/insert", {
+        const response = await axios.post("/api/lots/insert", {
             productid: params.id,
             lotname: lotname,
             quantity: quantity,
@@ -131,7 +131,7 @@ export default function Lots() {
     }
     const loadHistory = async (e, id) => {
         e.preventDefault();
-        const response = await axios.post("http://localhost:3000/api/lots/history", {
+        const response = await axios.post("/api/lots/history", {
             lotid: id,
         })
         setHistoryData(response.data.data)
@@ -148,7 +148,7 @@ export default function Lots() {
             confirmButtonText: "ยืนยัน!"
         }).then(async (result) => {
             if (result.isConfirmed) {
-                const response = await axios.post("http://localhost:3000/api/lots/delete/", {
+                const response = await axios.post("/api/lots/delete/", {
                     lotid: id,
                 })
                 if (response.data.status === "success") {
@@ -170,7 +170,7 @@ export default function Lots() {
         });
     }
     const handleManageStock = async (e, lotid) => {
-        const response = await axios.post("http://localhost:3000/api/lots/updatestock", {
+        const response = await axios.post("/api/lots/updatestock", {
             productId: params.id,
             lotid: lotid,
             value: valuetock,
