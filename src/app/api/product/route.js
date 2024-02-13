@@ -1,3 +1,4 @@
+
 import { PrismaClient } from '@prisma/client';
 import { NextResponse } from 'next/server';
 const prisma = new PrismaClient();
@@ -14,7 +15,7 @@ export async function POST(req, res) {
             skip: startIdx,
             take: per_page,
             where: {
-                
+
                 OR: [
                     { productname: { contains: search } },
                     { Types: { name: { contains: search } } } // Assuming a relationship
