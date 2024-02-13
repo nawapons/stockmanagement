@@ -26,7 +26,7 @@ export default function Products() {
     const fetchData = async (page) => {
         setLoading(true);
 
-        const response = await axios.post(`http://localhost:3000/api/product`, {
+        const response = await axios.post(`/api/product`, {
             page: page,
             per_page: perPage,
             delay: 1,
@@ -57,7 +57,7 @@ export default function Products() {
     const handlePerRowsChange = async (newPerPage, page) => {
         setLoading(true);
 
-        const response = await axios.post(`http://localhost:3000/api/product`, {
+        const response = await axios.post(`/api/product`, {
             page: page,
             per_page: newPerPage,
             delay: 1
@@ -70,7 +70,7 @@ export default function Products() {
     const handleSearch = async (query) => {
         setLoading(true);
 
-        const response = await axios.post(`http://localhost:3000/api/product`, {
+        const response = await axios.post(`/api/product`, {
             page: currentPage,
             per_page: perPage,
             delay: 1,
@@ -84,7 +84,7 @@ export default function Products() {
 
     const InsertProduct = async (e) => {
         e.preventDefault();
-        const response = await axios.post("http://localhost:3000/api/product/insert", {
+        const response = await axios.post("/api/product/insert", {
             productname: productname,
             type: selectType
         })
@@ -122,7 +122,7 @@ export default function Products() {
             confirmButtonText: "ยืนยัน!"
         }).then(async (result) => {
             if (result.isConfirmed) {
-                const response = await axios.post("http://localhost:3000/api/product/delete/", {
+                const response = await axios.post("/api/product/delete/", {
                     productid: id,
                 })
                 if (response.data.status === "success") {
