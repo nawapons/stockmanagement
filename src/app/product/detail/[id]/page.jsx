@@ -257,107 +257,110 @@ export default function Lots() {
         {
             name: 'Manage',
             cell: cellInfo => [
-                <button key={"viewdetail_" + cellInfo.id} name={"viewdetialbtn_" + cellInfo.id} onClick={(e) => { document.getElementById('viewdetail_' + cellInfo.id).showModal(); loadHistory(e, cellInfo.id) }} className="ml-1 btn btn-square btn-sm btn-success text-white"><IoEye /></button>,
-                , <dialog id={"viewdetail_" + cellInfo.id} className="modal modal-bottom sm:modal-middle">
-                    <div className="modal-box">
-                        <h3 className="font-bold text-lg">ประวัติสินค้า</h3>
-                        <div className="overflow-x-auto">
-                            <table className="table">
-                                {/* head */}
-                                <thead>
-                                    <tr>
-                                        <th>วันที่</th>
-                                        <th>ราคา(บาท/ชิ้น)</th>
-                                        <th>จำนวน</th>
-                                        <th>ราคารวม</th>
-                                    </tr>
-                                </thead>
-                                {historydata.length > 0 ? (
-                                    historydata.map((history, index) => (
-                                        <tbody key={index}>
+                <React.Fragment key={cellInfo.id}>
+                    <button key={"viewdetail_" + cellInfo.id} name={"viewdetialbtn_" + cellInfo.id} onClick={(e) => { document.getElementById('viewdetail_' + cellInfo.id).showModal(); loadHistory(e, cellInfo.id) }} className="ml-1 btn btn-square btn-sm btn-success text-white"><IoEye /></button>,
+                    , <dialog id={"viewdetail_" + cellInfo.id} className="modal modal-bottom sm:modal-middle">
+                        <div className="modal-box">
+                            <h3 className="font-bold text-lg">ประวัติสินค้า</h3>
+                            <div className="overflow-x-auto">
+                                <table className="table">
+                                    {/* head */}
+                                    <thead>
+                                        <tr>
+                                            <th>วันที่</th>
+                                            <th>ราคา(บาท/ชิ้น)</th>
+                                            <th>จำนวน</th>
+                                            <th>ราคารวม</th>
+                                        </tr>
+                                    </thead>
+                                    {historydata.length > 0 ? (
+                                        historydata.map((history, index) => (
+                                            <tbody key={index}>
+                                                <tr>
+                                                    <th>{thaidateformat(history[index].created_at)}</th>
+                                                    <th>{history[index].lot.price}</th>
+                                                    <td>{history[index].quantity}</td>
+                                                    <td>{history.sumall}</td>
+                                                </tr>
+                                            </tbody>
+                                        ))
+                                    ) : (
+                                        <tbody>
                                             <tr>
-                                                <th>{thaidateformat(history[index].created_at)}</th>
-                                                <th>{history[index].lot.price}</th>
-                                                <td>{history[index].quantity}</td>
-                                                <td>{history.sumall}</td>
+                                                <td align='center' colSpan="4">No history data available</td>
                                             </tr>
                                         </tbody>
-                                    ))
-                                ) : (
-                                    <tbody>
-                                        <tr>
-                                            <td align='center' colSpan="4">No history data available</td>
-                                        </tr>
-                                    </tbody>
-                                )}
-                            </table>
+                                    )}
+                                </table>
+                            </div>
+                            <div className="modal-action">
+                                <form method="dialog">
+                                    {/* if there is a button in form, it will close the modal */}
+                                    <button className="btn">Close</button>
+                                </form>
+                            </div>
                         </div>
-                        <div className="modal-action">
-                            <form method="dialog">
-                                {/* if there is a button in form, it will close the modal */}
-                                <button className="btn">Close</button>
-                            </form>
-                        </div>
-                    </div>
-                </dialog>
-                , < button key={"managestock" + cellInfo.id} name={"managestockbtn_" + cellInfo.id} onClick={() => document.getElementById('manageproduct_' + cellInfo.id).showModal()} className="ml-1 btn btn-square btn-sm btn-warning text-white"><MdEditSquare /></button >
-                , <dialog id={"manageproduct_" + cellInfo.id} className="modal modal-bottom sm:modal-middle">
-                    <div className="modal-box">
-                        <h3 className="font-bold text-lg">Import / Export</h3>
-                        <div className='grid gap-x-8 gap-y-4 grid-cols-2'>
+                    </dialog>
+                    , < button key={"managestock" + cellInfo.id} name={"managestockbtn_" + cellInfo.id} onClick={() => document.getElementById('manageproduct_' + cellInfo.id).showModal()} className="ml-1 btn btn-square btn-sm btn-warning text-white"><MdEditSquare /></button >
+                    , <dialog id={"manageproduct_" + cellInfo.id} className="modal modal-bottom sm:modal-middle">
+                        <div className="modal-box">
+                            <h3 className="font-bold text-lg">Import / Export</h3>
+                            <div className='grid gap-x-8 gap-y-4 grid-cols-2'>
+                                <div>
+                                    <div className="label">
+                                        <span className="label-text">Action</span>
+                                    </div>
+                                    <div className="form-control">
+                                        <label className="label cursor-pointer">
+                                            <span className="label-text">นำเข้า</span>
+                                            <input
+                                                key={`import_${cellInfo.id}`}
+                                                type="radio"
+                                                onChange={handleRadioChange}
+                                                defaultValue="import"
+                                                checked={action === 'import'}
+                                                name={`radio-${cellInfo.id}`}
+                                                className="radio checked:bg-red-500"
+                                            />
+                                        </label>
+                                    </div>
+                                    <div className="form-control">
+                                        <label className="label cursor-pointer">
+                                            <span className="label-text">นำออก</span>
+                                            <input
+                                                key={`export_${cellInfo.id}`}
+                                                type="radio"
+                                                onChange={handleRadioChange}
+                                                defaultValue="export"
+                                                checked={action === 'export'}
+                                                name={`radio-${cellInfo.id}`}
+                                                className="radio checked:bg-blue-500"
+                                            />
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
                             <div>
                                 <div className="label">
-                                    <span className="label-text">Action</span>
+                                    <span className="label-text">จำนวน</span>
                                 </div>
-                                <div className="form-control">
-                                    <label className="label cursor-pointer">
-                                        <span className="label-text">นำเข้า</span>
-                                        <input
-                                            key={`import_${cellInfo.id}`}
-                                            type="radio"
-                                            onChange={handleRadioChange}
-                                            defaultValue="import"
-                                            checked={action === 'import'}
-                                            name={`radio-${cellInfo.id}`}
-                                            className="radio checked:bg-red-500"
-                                        />
-                                    </label>
-                                </div>
-                                <div className="form-control">
-                                    <label className="label cursor-pointer">
-                                        <span className="label-text">นำออก</span>
-                                        <input
-                                            key={`export_${cellInfo.id}`}
-                                            type="radio"
-                                            onChange={handleRadioChange}
-                                            defaultValue="export"
-                                            checked={action === 'export'}
-                                            name={`radio-${cellInfo.id}`}
-                                            className="radio checked:bg-blue-500"
-                                        />
-                                    </label>
-                                </div>
+                                <input onChange={(e) => setValueStock(e.target.value)} type="number" placeholder="0 piece" maxLength={11} className="input input-bordered w-full max-w-lg" required />
                             </div>
-                        </div>
-                        <div>
-                            <div className="label">
-                                <span className="label-text">จำนวน</span>
-                            </div>
-                            <input onChange={(e) => setValueStock(e.target.value)} type="number" placeholder="0 piece" maxLength={11} className="input input-bordered w-full max-w-lg" required />
-                        </div>
 
-                        <div className="modal-action">
-                            <button onClick={(e) => handleManageStock(e, cellInfo.id)} className="btn btn-success text-white">บันทึก</button>
-                            <form method="dialog">
-                                {/* if there is a button in form, it will close the modal */}
-                                <button className="btn">Close</button>
-                            </form>
+                            <div className="modal-action">
+                                <button onClick={(e) => handleManageStock(e, cellInfo.id)} className="btn btn-success text-white">บันทึก</button>
+                                <form method="dialog">
+                                    {/* if there is a button in form, it will close the modal */}
+                                    <button className="btn">Close</button>
+                                </form>
+                            </div>
                         </div>
-                    </div>
-                </dialog>
-                , <button key={"delete_" + cellInfo.id} onClick={(e) => DeleteLot(cellInfo.id, e)} id={"delete_" + cellInfo.id} className="ml-1 btn btn-square btn-sm btn-error text-white">
-                    <HiXMark />
-                </button>],
+                    </dialog>
+                    , <button key={"delete_" + cellInfo.id} onClick={(e) => DeleteLot(cellInfo.id, e)} id={"delete_" + cellInfo.id} className="ml-1 btn btn-square btn-sm btn-error text-white">
+                        <HiXMark />
+                    </button></React.Fragment>]
+            ,
+
         }
     ];
 
