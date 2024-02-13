@@ -258,7 +258,7 @@ export default function Lots() {
             name: 'Manage',
             cell: cellInfo => [
                 <React.Fragment key={cellInfo.id}>
-                    <button key={"viewdetail_" + cellInfo.id} name={"viewdetialbtn_" + cellInfo.id} onClick={(e) => { document.getElementById('viewdetail_' + cellInfo.id).showModal(); loadHistory(e, cellInfo.id) }} className="ml-1 btn btn-square btn-sm btn-success text-white"><IoEye /></button>,
+                    <button key={"viewdetailbtn_" + cellInfo.id} name={"viewdetailbtn_" + cellInfo.id} onClick={(e) => { document.getElementById('viewdetail_' + cellInfo.id).showModal(); loadHistory(e, cellInfo.id) }} className="ml-1 btn btn-square btn-sm btn-success text-white"><IoEye /></button>,
                     , <dialog id={"viewdetail_" + cellInfo.id} className="modal modal-bottom sm:modal-middle">
                         <div className="modal-box">
                             <h3 className="font-bold text-lg">ประวัติสินค้า</h3>
