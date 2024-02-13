@@ -23,8 +23,6 @@ export default function Products() {
     const [isTypeInputMode, setIsTypeInputMode] = useState(false);
     const [selectType, setSelectType] = useState('');
 
-
-
     const fetchData = async (page) => {
         setLoading(true);
 
@@ -141,11 +139,11 @@ export default function Products() {
     }
     useEffect(() => {
         fetchData(1);
-        console.log(data)
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     const columns = [
-        {
+        {   
             name: 'รหัสสินค้า',
             selector: row => row.id,
             sortable: true,

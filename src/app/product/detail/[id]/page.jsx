@@ -198,6 +198,7 @@ export default function Lots() {
     }
     useEffect(() => {
         fetchData(1);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     const columns = [
@@ -256,8 +257,8 @@ export default function Lots() {
         {
             name: 'Manage',
             cell: cellInfo => [
-                < button key={"viewdetail" + cellInfo.id} onClick={(e) => { document.getElementById('viewdetail' + cellInfo.id).showModal(); loadHistory(e, cellInfo.id) }} className="ml-1 btn btn-square btn-sm btn-success text-white"><IoEye /> </button >
-                , <dialog id={"viewdetail" + cellInfo.id} className="modal modal-bottom sm:modal-middle">
+                < button key={"viewdetail_" + cellInfo.id} name={"viewdetialbtn_" + cellInfo.id} onClick={(e) => { document.getElementById('viewdetail_' + cellInfo.id).showModal(); loadHistory(e, cellInfo.id) }} className="ml-1 btn btn-square btn-sm btn-success text-white"><IoEye /> </button >
+                , <dialog id={"viewdetail_" + cellInfo.id} className="modal modal-bottom sm:modal-middle">
                     <div className="modal-box">
                         <h3 className="font-bold text-lg">ประวัติสินค้า</h3>
                         <div className="overflow-x-auto">
@@ -299,7 +300,7 @@ export default function Lots() {
                         </div>
                     </div>
                 </dialog>
-                , < button key={"managestock" + cellInfo.id} onClick={() => document.getElementById('manageproduct_' + cellInfo.id).showModal()} className="ml-1 btn btn-square btn-sm btn-warning text-white"><MdEditSquare /></button >
+                , < button key={"managestock" + cellInfo.id} name={"managestockbtn_" + cellInfo.id} onClick={() => document.getElementById('manageproduct_' + cellInfo.id).showModal()} className="ml-1 btn btn-square btn-sm btn-warning text-white"><MdEditSquare /></button >
                 , <dialog id={"manageproduct_" + cellInfo.id} className="modal modal-bottom sm:modal-middle">
                     <div className="modal-box">
                         <h3 className="font-bold text-lg">Import / Export</h3>
