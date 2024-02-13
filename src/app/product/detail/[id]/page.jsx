@@ -204,7 +204,7 @@ export default function Lots() {
     const columns = [
         {
             name: 'LOT',
-            selector: row => row.lotname,
+            selector: (row) => row.lotname,
             sortable: true,
         },
         {
@@ -256,10 +256,18 @@ export default function Lots() {
         },
         {
             name: 'Manage',
-            cell: cellInfo => [
-                <React.Fragment key={cellInfo.id}>
-                    <button key={"viewdetailbtn_" + cellInfo.id} name={"viewdetailbtn_" + cellInfo.id} onClick={(e) => { document.getElementById('viewdetail_' + cellInfo.id).showModal(); loadHistory(e, cellInfo.id) }} className="ml-1 btn btn-square btn-sm btn-success text-white"><IoEye /></button>,
-                    , <dialog id={"viewdetail_" + cellInfo.id} className="modal modal-bottom sm:modal-middle">
+            cell: (cellInfo) => [
+                <div key={cellInfo.id}>
+                    <button
+                        name={'viewdetial_' + cellInfo.id}
+                        onClick={(e) => {
+                            document.getElementById('viewdetail_' + cellInfo.id).showModal();
+                            loadHistory(e, cellInfo.id);
+                        }}
+                        className="ml-1 btn btn-square btn-sm btn-success text-white">
+                        <IoEye />
+                    </button>
+                    , <dialog id={'viewdetail_' + cellInfo.id} className="modal modal-bottom sm:modal-middle">
                         <div className="modal-box">
                             <h3 className="font-bold text-lg">ประวัติสินค้า</h3>
                             <div className="overflow-x-auto">
@@ -301,8 +309,14 @@ export default function Lots() {
                             </div>
                         </div>
                     </dialog>
-                    , < button key={"managestock" + cellInfo.id} name={"managestockbtn_" + cellInfo.id} onClick={() => document.getElementById('manageproduct_' + cellInfo.id).showModal()} className="ml-1 btn btn-square btn-sm btn-warning text-white"><MdEditSquare /></button >
-                    , <dialog id={"manageproduct_" + cellInfo.id} className="modal modal-bottom sm:modal-middle">
+                    , <button
+                        name={'managestockbtn_' + cellInfo.id}
+                        onClick={() => document.getElementById('manageproduct_' + cellInfo.id).showModal()}
+                        className="ml-1 btn btn-square btn-sm btn-warning text-white"
+                    >
+                        <MdEditSquare />
+                    </button>
+                    , <dialog id={'manageproduct_' + cellInfo.id} className="modal modal-bottom sm:modal-middle">
                         <div className="modal-box">
                             <h3 className="font-bold text-lg">Import / Export</h3>
                             <div className='grid gap-x-8 gap-y-4 grid-cols-2'>
@@ -348,7 +362,11 @@ export default function Lots() {
                             </div>
 
                             <div className="modal-action">
-                                <button onClick={(e) => handleManageStock(e, cellInfo.id)} className="btn btn-success text-white">บันทึก</button>
+                                <button
+                                    onClick={(e) => DeleteLot(cellInfo.id, e)}
+                                    id={'delete_' + cellInfo.id}
+                                    className="ml-1 btn btn-square btn-sm btn-error text-white"
+                                ></button>
                                 <form method="dialog">
                                     {/* if there is a button in form, it will close the modal */}
                                     <button className="btn">Close</button>
@@ -358,7 +376,7 @@ export default function Lots() {
                     </dialog>
                     , <button key={"delete_" + cellInfo.id} onClick={(e) => DeleteLot(cellInfo.id, e)} id={"delete_" + cellInfo.id} className="ml-1 btn btn-square btn-sm btn-error text-white">
                         <HiXMark />
-                    </button></React.Fragment>]
+                    </button></div>]
             ,
 
         }
