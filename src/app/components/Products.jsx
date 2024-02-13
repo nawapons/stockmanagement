@@ -26,7 +26,7 @@ export default function Products() {
     const fetchData = async (page) => {
         setLoading(true);
 
-        const response = await axios.post(`http://localhost:3000/api/product`, {
+        const response = await axios.post(`https://stockmanagement-ten.vercel.app/api/product`, {
             page: page,
             per_page: perPage,
             delay: 1,
